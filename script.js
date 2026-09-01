@@ -1,138 +1,152 @@
-let menu_item = document.querySelector("#menu_item");
-let lets_talk = document.querySelector("#lets_talk");
-let studio_nama = document.querySelector("#studio_nama_item");
-let dark_item = document.querySelector("#DARK");
+// --- CURSOR VIDEO LOGIC ---
+let cursor_video = document.querySelector(".cursor-video-container");
+let hero_section_1 = document.querySelector(".hero-section1");
 
-let menuOverlay = document.querySelector(".menu-overlay-container");
-let isMenuOpen = false;
-
-let cursor_follow_video_container = document.querySelector(".cursor_follow_video_container");
-let cursor_video = document.querySelector("#cursor_video");
-let isDark = false;
-
-// --- RIGHT NAV ---
-menu_item.addEventListener("mouseenter", () => {
-    if (isMenuOpen) {
-        menu_item.textContent = "CLOSE";
-    } else {
-        menu_item.textContent = "OPEN";
-    }
+hero_section_1.addEventListener("mousemove" , (e) => {
+    cursor_video.style.top = `${e.clientY}px`;
+    cursor_video.style.left = `${e.clientX}px`;
 });
 
-menu_item.addEventListener("mouseleave", () => {
-    if (isMenuOpen) {
-        menu_item.textContent = "CLOSE";
-    } else {
-        menu_item.textContent = "MENU";
-    }
+hero_section_1.addEventListener("mouseenter" , () => {
+    cursor_video.style.opacity = "1";
 });
 
-lets_talk.addEventListener("mouseenter", () => {
-    lets_talk.textContent = "CONTACT";
-});
-lets_talk.addEventListener("mouseleave", () => {
-    lets_talk.textContent = "LET'S TALK!";
+hero_section_1.addEventListener("mouseleave" , () => {
+    cursor_video.style.opacity = "0";
 });
 
-// --- LEFT NAV ---
-studio_nama.addEventListener("mouseenter", () => {
-    studio_nama.textContent = "HOME";
-});
-studio_nama.addEventListener("mouseleave", () => {
-    studio_nama.textContent = "STUDIO NAMMA";
-});
 
-// --- CURSOR VIDEO ---
-document.addEventListener("mousemove", (e) => {
-    // Stop updating or showing the video if the menu is open
-    if (isMenuOpen) {
-        return;
-    }
-
-    cursor_follow_video_container.style.top = `${e.clientY}px`;
-    cursor_follow_video_container.style.left = `${e.clientX}px`;
-
-    if (cursor_video.style.display !== "block") {
-        cursor_video.style.display = "block";
-        cursor_video.play();
-    }
-});
-
-// --- DARK MODE TOGGLE & HOVER ---
-dark_item.addEventListener("mouseenter", () => {
-    if (isDark) {
-        dark_item.textContent = "LIGHT MODE";
-    } else {
-        dark_item.textContent = "DARK MODE";
-    }
-});
-
-dark_item.addEventListener("mouseleave", () => {
-    if (isDark) {
-        dark_item.textContent = "LIGHT MODE";
-    } else {
-        dark_item.textContent = "DARK MODE";
-    }
-});
+// --- DARK MODE LOGIC ---
+let dark_item = document.querySelector("#darkmode-btn");
+let isdark = false;
 
 dark_item.addEventListener("click", () => {
-    isDark = !isDark;
-
-    if (isDark) {
+    console.log("Dark mode clicked!");
+    isdark = !isdark;
+    
+    if (isdark) {
         document.body.classList.add("dark-mode");
-        dark_item.textContent = "LIGHT MODE";
+        dark_item.innerHTML = "LIGHT MODE";
     } else {
         document.body.classList.remove("dark-mode");
-        dark_item.textContent = "DARK MODE";
+        dark_item.innerHTML = "DARK MODE";
     }
 });
 
-// --- MENU TOGGLE ---
-menu_item.addEventListener("click", () => {
-    isMenuOpen = !isMenuOpen;
 
-    if (isMenuOpen) {
-        menuOverlay.style.transform = "translate(0, 0)";
-        menu_item.textContent = "CLOSE";
-        
-        // Hide and pause the cursor video
-        cursor_video.pause();
-        cursor_video.style.display = "none";
+// --- MENU BUTTON LOGIC ---
+let menu_btn = document.querySelector("#menu-btn");
+let menu_overlay = document.querySelector(".menu-overlay");
+let ismenuopen = false;
+
+menu_btn.addEventListener("click", () => {
+    console.log("menu-btn-clicked");
+    ismenuopen = !ismenuopen;
+
+    if(ismenuopen){
+        menu_btn.textContent = "CLOSE";
+        menu_overlay.classList.add("show");
     } else {
-        menuOverlay.style.transform = "translate(0, -110%)";
-        menu_item.textContent = "MENU";
-        
-        // Resume playing when menu closes
-        cursor_video.style.display = "block";
-        cursor_video.play();
+        menu_btn.textContent = "MENU";
+        menu_overlay.classList.remove("show");
     }
 });
 
-// --- MENUBAR ITEMS HOVER ANIMATION ---
-let menubar_contents = document.querySelectorAll(".menubar-content");
+// --- MENU HOVER LOGIC ---
+let menu_items = document.querySelectorAll(".menu-items");
 
-menubar_contents.forEach(content => {
-    let imgContainer = content.querySelector(".menubar-content-img");
+menu_items.forEach((item) => {
+
+    item.addEventListener("mouseenter", () => {
+        // Lower this number to shrink the gap! (e.g., 15px)
+        item.style.transform = "translateX(15px)"; 
+        let img = item.parentElement.querySelector("img");
+        
+        img.style.width = "256px"; 
+    });
+
+    item.addEventListener("mouseleave", () => {
+        item.style.transform = "translateX(0px)";
+        let img = item.parentElement.querySelector("img");
+        img.style.width = "0px";
+    });
+
+});
+
+// --- HOVER IMAGE STACK LOGIC ---
+let u_tags = document.querySelectorAll(".hero3-main-text u");
+
+// Add your own image URLs here!
+let pop_images = [
+    "https://cdn.prod.website-files.com/679cb9cacf00799ba4b4c985/68d143844e199c5fe25893c6_Details%201.webp",
+    "https://cdn.prod.website-files.com/679cb9cacf00799ba4b4c985/68d14384921ac39670293bad_Details2.webp",
+    "https://cdn.prod.website-files.com/679cb9cacf00799ba4b4c985/68d14384e95f535d6ce77d4f_Details3.webp",
+    "https://cdn.prod.website-files.com/679cb9cacf00799ba4b4c985/68d14384e6539b091e5c0c8b_Details4.webp",
+    "https://cdn.prod.website-files.com/679cb9cacf00799ba4b4c985/68d14384b8a083b5d518278d_Details5.webp"
+];
+
+let img_index = 0;
+let pop_interval; // This will hold our timer
+
+// We need to track the mouse position globally so the timer knows where to drop the images
+let current_x = 0;
+let current_y = 0;
+
+document.addEventListener("mousemove", (e) => {
+    current_x = e.clientX;
+    current_y = e.clientY;
+});
+
+u_tags.forEach((u_tag) => {
     
-    // Fix: Changed querySelectorAll to querySelector because we want a single element's style
-    let menubar_item = content.querySelector(".menubar-items"); 
-
-    content.addEventListener("mouseenter", () => {
-        // Only fade the image in
-        imgContainer.style.opacity = "1";
-        imgContainer.style.transform = "translateX(0px)";
+    // When the mouse ENTERS the word, start the rapid-fire timer
+    u_tag.addEventListener("mouseenter", () => {
         
-        // Fix: Changed 'traslateX' to 'translateX'
-        menubar_item.style.transform = "translateX(14.5rem)"; 
-        
+        // This fires an image every 150 milliseconds
+        pop_interval = setInterval(() => {
+            let img = document.createElement("img");
+            img.src = pop_images[img_index];
+            img.classList.add("pop-image");
+            
+            // Drop the image at the current mouse coordinates
+            img.style.left = `${current_x}px`;
+            img.style.top = `${current_y}px`;
+            
+            // Add a random tilt
+            let random_rotation = Math.random() * 30 - 15;
+            img.style.transform = `translate(-50%, -50%) rotate(${random_rotation}deg)`;
+            
+            document.body.appendChild(img);
+            img_index = (img_index + 1) % pop_images.length;
+            
+            // Clean up the image after 1 second so the browser doesn't lag
+            setTimeout(() => {
+                img.remove();
+            }, 1500);
+            
+        }, 150); // Change this number to make the popping faster (lower) or slower (higher)
     });
 
-    content.addEventListener("mouseleave", () => {
-        // Only fade the image out
-        imgContainer.style.opacity = "0";
-        imgContainer.style.transform = "translateX(-20px)";
-        
-        // Fix: Changed 'traslateX' to 'translateX'
-        menubar_item.style.transform = "translateX(0px)"; 
+    // When the mouse LEAVES the word, stop the timer
+    u_tag.addEventListener("mouseleave", () => {
+        clearInterval(pop_interval);
     });
+    
+});
+
+let playground_container = document.querySelector(".playground-container");
+let portfolio_container = document.querySelector(".portfolio-container");
+
+
+playground_container.addEventListener("mousemove" , (e) => {
+    portfolio_container.style.top = `${e.clientY}px`;
+    portfolio_container.style.left = `${e.clientX}px`;
+});
+
+playground_container.addEventListener("mouseenter" , () => {
+    portfolio_container.style.opacity = "1";
+});
+
+playground_container.addEventListener("mouseleave" , () => {
+    portfolio_container.style.opacity = "0";
 });
