@@ -150,3 +150,6 @@ playground_container.addEventListener("mouseenter" , () => {
 playground_container.addEventListener("mouseleave" , () => {
     portfolio_container.style.opacity = "0";
 });
+
+let matera_img = document.querySelector("#matera_bgimg");
+let por

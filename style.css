@@ -78,7 +78,7 @@ body {
   z-index: 50;
   opacity: 0;
   transform: translate(5%, 5%); /* Centers exactly on the mouse cursor */
-  transition: opacity 0.3s ease, top 0.1s linear, left 0.1s linear;
+  transition: opacity 0.1s ease-in-out, top 0.1s linear, left 0.1s linear;
 }
 
 .cursor-video-container video {
@@ -297,4 +297,43 @@ position: relative;
   height: 100%;
 
 
+}
+
+.hero-section5{
+  height : 200vh;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  position: relative;
+  
+
+}
+.sub-hero-section5{
+  border: 1px solid black;
+  padding: 10px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.sub-hero-section5 img{
+  height: 100%;
+  width: 100%;
+  border-radius: 15px;
+}
+
+.hero-sub-hero-section5{
+  position: absolute;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-sub-hero-section5 video{
+  width: 60%;
+  height: 30%;
+  opacity: 1;
+  border-radius: 10px;
 }
